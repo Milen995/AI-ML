@@ -1,0 +1,29 @@
+import matplotlib
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
+import pandas as pd
+
+df = pd.read_csv("/home/milen/Downloads/Free_Test_Data_200KB_CSV-1.csv")
+
+fig, axes = plt.subplots(2, 2, figsize=(14, 10))
+fig.suptitle("Data Analysis", fontsize=16)
+
+# Графика 1 — Bar chart (вече я знаеш)
+df.groupby("NAME")["AGE"].mean().plot(kind="bar", ax=axes[0,0])
+axes[0,0].set_title("Average Age by Name")
+
+# Графика 2 — Histogram
+df["AGE"].plot(kind="hist", bins=10, ax=axes[0,1])
+axes[0,1].set_title("Age Distribution")
+
+# Графика 3 — Line chart
+df["AGE"].plot(kind="line", ax=axes[1,0])
+axes[1,0].set_title("Age over Index")
+
+# Графика 4 — Box plot
+df["AGE"].plot(kind="box", ax=axes[1,1])
+axes[1,1].set_title("Age Box Plot")
+
+plt.tight_layout()
+plt.savefig("/home/milen/Documents/AIML/analysis.png")
+print("Saved!")
